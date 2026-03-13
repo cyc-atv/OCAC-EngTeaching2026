@@ -18,6 +18,8 @@
 
         elementLangToggle.dataset.lang = configLang;
         elementLangToggle.checked = configLang === 'en-US';
+
+        toggleLanguage(configLang);
     });
 
     function toggleLanguage(lang) {

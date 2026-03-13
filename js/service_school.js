@@ -143,6 +143,7 @@
                 elementSchoolIntroductionArticleContent.innerHTML = `
                     <h2>${schoolItem.school_name}</h2>
                     <p>${COUNTY[schoolItem.county][configLang]} | ${SCHOOL_TYPE[schoolItem.type][configLang]}</p>
+                    ${schoolItem.image ? `<img class="school-image" src="${schoolItem.image}" alt="${schoolItem.school_name}">` : ''}
                     <p>${markdownToHTML(schoolItem.introduction)}</p>
                     <a class="site-link" href="${schoolItem.site}" target="_blank" rel="noopener noreferrer">了解更多</a>
                     <a class="google-maps-link" href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(schoolItem.address)}" target="_blank" rel="noopener noreferrer">在 Google 地圖中查看</a>
