@@ -3,21 +3,31 @@
     --secondary-color: #038d5a;
     --text-primary-color: #052105;
     --text-secondary-color: #40514d;
+    --navbar-height: 3.5em;
+}
+
+*, *::before, *::after {
+    box-sizing: border-box;
 }
 
 body {
     color: var(--text-primary-color);
+    margin-top: var(--navbar-height);
 }
 
 /* Top Menu */
 .main-nav {
+    top: 0;
+    position: fixed;
+    z-index: 999;
     display: flex;
     justify-content: space-between;
     align-items: center;
     background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
     color: #FFF;
-    height: 48px;
-    padding: 1em;
+    height: var(--navbar-height);
+    width: 100%;
+    padding: 0 1.5em;
 }
 
 .main-nav .brand img {
@@ -104,7 +114,7 @@ body {
 #menu-toggle:checked ~ .menu-list {
     display: flex;
     position: absolute;
-    top: 48px;
+    top: var(--navbar-height);
     right: 0;
     background-color: #f46b45;
     width: 100%;
@@ -175,13 +185,23 @@ body {
     }
 }
 
-/* Header */
-.main-header .header-content {
-    display: flex;
-    align-items: center;
-    max-width: 90%;
+/* Index Page Header*/
+.main-header {
+    height: 30vh;
+    min-height: 350px;
+    width: 100%;
+    background-color: var(--secondary-color);
 }
 
+.main-header .header-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    max-width: 100%;
+    height: 100%;
+}
+
+/* Other Page Header */
 .page-header {
     background-image: url('../img/Header_Background.png');
     background-size: cover;
@@ -253,11 +273,17 @@ body {
     padding: 2em 0;
 }
 
+.img-fluid {
+    width: 100%;
+    height: auto;
+}
+
 /* Footer */
 .footer {
     display: flex;
     flex-direction: column-reverse;
     gap: 2em;
+    margin: 1.5em auto;
 }
 
 .footer .right h1 {
@@ -335,10 +361,24 @@ body {
     gap: 1em;
 }
 
-.main-content .news .stay-tuned {
+.main-content .stay-tuned {
     color: #ff0000;
     font-size: 1.2em;
     font-style: bold;
+}
+
+/* Training Location */
+.page-content .location .basic-information {
+    margin-bottom: 3em;
+}
+
+.page-content .location .basic-information .site {
+    margin-top: 1.5em;
+}
+
+.page-content .location .traffic iframe{
+    width: 100%;
+    max-width: 100%;
 }
 
 /* Service School */
