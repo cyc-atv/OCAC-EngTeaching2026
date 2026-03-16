@@ -338,6 +338,10 @@ body {
     color: #fff;
 }
 
+.button h3 {
+    margin: 0.5em 0;
+}
+
 .button .sub-title {
     color: var(--text-secondary-color);
     font-size: 0.8em;
@@ -352,6 +356,28 @@ body {
     display: block;
     width: 100%;
     text-align: center;
+}
+
+.button:has(.button-image):has(.button-content) {
+    display: flex;
+    flex-direction: row;
+    gap: 12px;
+    align-items: center;
+}
+
+.button .button-image {
+    width: 64px;
+    height: 64px;
+    object-fit: cover;
+}
+
+.button .button-content {
+    display: flex;
+    flex-direction: column;
+}
+
+.button .button-description {
+    margin: 0.2em 0;
 }
 
 .article-content {
@@ -510,4 +536,15 @@ body {
 
 .page-content .school .school-introduction {
     display: none;
+}
+
+.page-content .school .school-introduction .school-image {
+    width: 100%;
+    height: auto;
+}
+
+@media (min-width: 700px) {
+    .page-content .school .school-introduction .school-image {
+        max-width: 600px;
+    }
 }

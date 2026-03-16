@@ -129,8 +129,8 @@
             elementSchoolItem.setAttribute('data-school-name', item.school_name)
             elementSchoolItem.setAttribute('data-school-county', item.county)
             elementSchoolItem.setAttribute('data-school-type', item.type)
-            elementSchoolItem.innerHTML = `<div class="school-item-content button"><h3>${item.school_name}<span class="sub-title">${item.school_en_name}</span></h3>
-                <p>${COUNTY[item.county][configLang]} | ${SCHOOL_TYPE[item.type][configLang]}</p></div>`
+
+            elementSchoolItem.innerHTML = `<div class="school-item-content button"><img class="button-image" src="${item.image ? item.image : 'img/icon-no-image.png'}"><div class="button-content"><h3>${item.school_name}<span class="sub-title">${item.school_en_name}</span></h3><p class="button-description">${COUNTY[item.county][configLang]} | ${SCHOOL_TYPE[item.type][configLang]}</p></div></div>`
 
             elementSchoolItem.addEventListener('click', (e) => {
                 var elementItem = e.currentTarget
@@ -145,8 +145,8 @@
                     <p>${COUNTY[schoolItem.county][configLang]} | ${SCHOOL_TYPE[schoolItem.type][configLang]}</p>
                     ${schoolItem.image ? `<img class="school-image" src="${schoolItem.image}" alt="${schoolItem.school_name}">` : ''}
                     <p>${markdownToHTML(schoolItem.introduction)}</p>
-                    <a class="site-link" href="${schoolItem.site}" target="_blank" rel="noopener noreferrer">了解更多</a>
-                    <a class="google-maps-link" href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(schoolItem.address)}" target="_blank" rel="noopener noreferrer">在 Google 地圖中查看</a>
+                    <a class="site-link button" href="${schoolItem.site}" target="_blank" rel="noopener noreferrer">了解更多</a>
+                    <a class="google-maps-link button" href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(schoolItem.address)}" target="_blank" rel="noopener noreferrer">在 Google 地圖中查看</a>
                 `
 
                 elementPageSchoolSelect.style.display = 'none'
