@@ -186,20 +186,21 @@ body {
 .main-nav .nav-menu .menu-list {
     display: flex;
     gap: 1em;
+    transition: right ease 0.3s;
 }
 
 #menu-toggle ~ .menu-list {
-    display: none;
+    position: absolute;
+    top: var(--navbar-height);
+    right: -100vw;
+    flex-direction: column;
 }
 
 #menu-toggle:checked ~ .menu-list {
-    display: flex;
-    position: absolute;
-    top: var(--navbar-height);
     right: 0;
-    background-color: #f46b45;
+    background-color: var(--secondary-color);
     width: 100%;
-    padding: 1em 0;
+    padding: 1em 0.5em;
 }
 
 #lang-toggle {
@@ -207,6 +208,10 @@ body {
 }
 
 .lang-button-container {
+    align-self: flex-start;
+}
+
+.lang-button-label {
     border: 2px solid #fff;
     cursor: pointer;
     padding: 2px;
@@ -248,11 +253,6 @@ body {
     width: 100%;
 }
 
-/* .menu-list a:hover {
-    border-top: 2px solid rgb(16, 72, 16);
-    border-bottom: 2px solid rgb(16, 72, 16);
-} */
-
 @media (min-width: 700px) {
     .main-nav .nav-menu .menu-button-container {
         display: none;
@@ -263,6 +263,10 @@ body {
         position: static;
         flex-direction: row;
         align-items: center;
+    }
+
+    .lang-button-container {
+        align-self: center;
     }
 }
 
