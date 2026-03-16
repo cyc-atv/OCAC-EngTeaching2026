@@ -538,6 +538,12 @@ body {
     display: none;
 }
 
+.page-content .school .school-introduction h2 .sub-title {
+    margin: 0.25em 0;
+    font-size: 0.75em;
+    color: var(--text-secondary-color);
+}
+
 .page-content .school .school-introduction .school-image {
     width: 100%;
     height: auto;
@@ -546,5 +552,10 @@ body {
 @media (min-width: 700px) {
     .page-content .school .school-introduction .school-image {
         max-width: 600px;
+    }
+
+    .page-content .school .school-introduction h2 .sub-title {
+        display: inline-block;
+        margin: 0 0.25em;
     }
 }

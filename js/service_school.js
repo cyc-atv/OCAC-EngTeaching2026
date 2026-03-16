@@ -141,8 +141,8 @@
                 elementSchoolIntroductionArticleContent.dataset.county = schoolItem.county
                 elementSchoolIntroductionArticleContent.dataset.type = schoolItem.type
                 elementSchoolIntroductionArticleContent.innerHTML = `
-                    <h2>${schoolItem.school_name}</h2>
-                    <p>${COUNTY[schoolItem.county][configLang]} | ${SCHOOL_TYPE[schoolItem.type][configLang]}</p>
+                    <h2>${schoolItem.school_name}<p class="sub-title">${schoolItem.school_en_name}</p></h2>
+                    <p class="category">${COUNTY[schoolItem.county][configLang]} | ${SCHOOL_TYPE[schoolItem.type][configLang]}</p>
                     ${schoolItem.image ? `<img class="school-image" src="${schoolItem.image}" alt="${schoolItem.school_name}">` : ''}
                     <p>${markdownToHTML(schoolItem.introduction)}</p>
                     <a class="site-link button" href="${schoolItem.site}" target="_blank" rel="noopener noreferrer">了解更多</a>
@@ -171,6 +171,8 @@
                     link.textContent = elementLangToggle.dataset.lang == "zh-TW" ? '顯示所有選項' : 'All'
                 }
             })
+
+            document.querySelector('.school .school-introduction .category').textContent = `${COUNTY[elementSchoolIntroductionArticleContent.dataset.county][elementLangToggle.dataset.lang]} | ${SCHOOL_TYPE[elementSchoolIntroductionArticleContent.dataset.type][elementLangToggle.dataset.lang]}`
         })
 
         elementSelection.forEach(link => link.addEventListener('click', (e) => {
