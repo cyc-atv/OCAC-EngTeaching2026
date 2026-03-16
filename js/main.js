@@ -20,6 +20,8 @@
         elementLangToggle.checked = configLang === 'en-US';
 
         toggleLanguage(configLang);
+    }).then(() => {
+        document.dispatchEvent(new CustomEvent("module-ready", { detail: {module: "main"}}))
     });
 
     function toggleLanguage(lang) {
