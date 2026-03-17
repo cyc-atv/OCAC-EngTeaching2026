@@ -663,7 +663,66 @@ body {
         display:  flex;
     }
     .page-content .faq .index li {
-        width: 10em;
-        height: 10em;
+        width: 8em;
+        height: 8em;
+    }
+}
+
+.faq .content.weather .location-weather {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.faq .content.weather .location-weather .time-slot {
+    border: 2px solid var(--secondary-color);
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    margin: 4px;
+}
+
+.faq .content.weather .location-weather .time-slot .time-stamp {
+    padding: 12px;
+    margin: 0;
+    font-weight: bold;
+}
+
+.faq .content.weather .location-weather .time-slot .weather-data-list {
+    list-style-type: none;
+    display: flex;
+    flex-direction: column;
+    background-color: var(--secondary-color);
+    color: #fff;
+    margin: 0;
+    padding: 0.25em;
+}
+
+.faq .content.weather .location-weather .time-slot .weather-data-list .weather-data-item {
+    border: 2px solid var(--primary-color);
+    background-color: var(--primary-color);
+    border-radius: 8px;
+    display: flex;
+    flex-direction: row;
+    flex: 1;
+    margin: 0.15em;
+    padding: 0.5em;
+}
+
+@media (min-width: 700px) {
+    .faq .content.weather .location-weather {
+        flex-direction: row;
+    }
+
+    .faq .content.weather .location-weather .time-slot .weather-data-list {
+        flex-direction: row;
+    }
+
+    .faq .content.weather .location-weather .time-slot .weather-data-list .weather-data-item {
+        margin: 4px;
+        padding: 4px;
+        flex-direction: column;
+        gap: 0.5em;
     }
 }
