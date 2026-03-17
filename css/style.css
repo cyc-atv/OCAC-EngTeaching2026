@@ -517,9 +517,15 @@ body {
     margin-top: 1.5em;
 }
 
-.page-content .location .traffic iframe{
+.page-content .location .traffic iframe {
     width: 100%;
-    height: 15em;
+    height: 30em;
+}
+
+@media (min-width: 700px) {
+    .page-content .location .traffic iframe {
+        height: 50em;
+    }
 }
 
 /* Service School */
