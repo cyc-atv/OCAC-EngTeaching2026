@@ -20,7 +20,7 @@
         elementLangToggle.checked = configLang === 'en-US';
 
         toggleLanguage(configLang);
-    }).then(() => {
+    }).finally(() => {
         document.dispatchEvent(new CustomEvent("module-ready", { detail: {module: "main"}}))
     });
 
@@ -28,16 +28,18 @@
         //Change Language
         translation_data.forEach(item => {
             if (!item.id || item.id == '') return
-            const element = document.querySelector(item.id)
-            if (element) {
-                if (element instanceof HTMLAnchorElement && item.attribute == "href") {
-                    element.setAttribute("href", item[lang]);
-                } else if (item.isHTMLContent) {
-                    element.innerHTML = item[lang]
-                } else {
-                    element.textContent = item[lang];
+            const elements = document.querySelectorAll(item.id)
+            elements.forEach((element) => {
+                if (element) {
+                    if (element instanceof HTMLAnchorElement && item.attribute == "href") {
+                        element.setAttribute("href", item[lang]);
+                    } else if (item.isHTMLContent) {
+                        element.innerHTML = item[lang]
+                    } else {
+                        element.textContent = item[lang];
+                    }
                 }
-            }
+            })
         })
 
         localStorage.setItem("language", lang);

@@ -197,7 +197,7 @@
                 elementPageSchoolIntroduction.style.display = 'none'
             })
         })
-    }).then(() => {
+    }).finally(() => {
         document.dispatchEvent(new CustomEvent("module-ready", { detail: {module: "service-school"}}))
     })
 })()
