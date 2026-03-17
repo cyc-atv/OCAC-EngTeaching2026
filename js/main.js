@@ -27,6 +27,7 @@
     function toggleLanguage(lang) {
         //Change Language
         translation_data.forEach(item => {
+            if (!item.id || item.id == '') return
             const element = document.querySelector(item.id)
             if (element) {
                 if (element instanceof HTMLAnchorElement && item.attribute == "href") {
