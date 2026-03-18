@@ -28,6 +28,15 @@
         //Change Language
         translation_data.forEach(item => {
             if (!item.id || item.id == '') return
+
+            if (item.isPageTitle) {
+                const currentPageFileName = location.pathname.split('/').pop()
+                if (item.id === currentPageFileName) {
+                    document.title = item[lang]
+                }
+                return
+            }
+
             const elements = document.querySelectorAll(item.id)
             elements.forEach((element) => {
                 if (element) {
