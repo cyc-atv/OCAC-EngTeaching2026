@@ -2,9 +2,10 @@
     const countdownDate = new Date("2026/5/29 23:59:59:999")
     const elementCountdownDigit = document.querySelector('.countdown .digit')
 
-    const setCountdownDigit = (days, hours, minutes, seconds) => {
+    const setCountdownDigit = (days, hours, minutes, seconds, timerID) => {
         if (days <= 0) {
             elementCountdownDigit.innerHTML = `<p><span class="title countdown-end">志工報名已結束</span></p>`
+            clearInterval(timerID)
             return
         }
 
@@ -21,6 +22,6 @@
         var minutes = Math.floor(distance % (1000 * 60 * 60) / (1000 * 60))
         var seconds = Math.floor(distance % (1000 * 60) / 1000)
 
-        setCountdownDigit(days, hours, minutes, seconds)
+        setCountdownDigit(days, hours, minutes, seconds, timer)
     }, 1000)
 })()
