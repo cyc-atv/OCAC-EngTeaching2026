@@ -3,6 +3,8 @@
     --secondary-color: #038d5a;
     --text-primary-color: #052105;
     --text-secondary-color: #40514d;
+    --link-color: #116ec5;
+    --link-hover-cover: #260953;
     --navbar-height: 3.5em;
 }
 
@@ -13,6 +15,16 @@
 body {
     color: var(--text-primary-color);
     margin-top: var(--navbar-height);
+}
+
+a {
+    transition: text-decoration 0.3s ease, color 0.3s ease;
+    color: var(--link-color);
+}
+
+a:hover {
+    text-decoration: none;
+    color: var(--link-hover-cover);
 }
 
 .button {
