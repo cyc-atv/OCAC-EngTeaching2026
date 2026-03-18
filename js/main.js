@@ -2,7 +2,7 @@
     var translation_data = [];
     const elementLangToggle = document.querySelector('#lang-toggle');
     
-    fetch('./js/translation.json').then(response => response.json()).then(data => {
+    fetch('./js/translation.json', { cache: 'no-cache' }).then(response => response.json()).then(data => {
         const configLang = localStorage.getItem("language") || "zh-TW";
         translation_data = data;
 

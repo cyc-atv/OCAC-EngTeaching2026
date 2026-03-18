@@ -109,7 +109,7 @@
         }
     }
 
-    fetch("./js/data.json").then(response => response.json()).then(data => {
+    fetch("./js/data.json", { cache: 'no-cache' }).then(response => response.json()).then(data => {
         const configLang = localStorage.getItem("language") || "zh-TW";
         const elementLangToggle = document.querySelector('#lang-toggle');
 
