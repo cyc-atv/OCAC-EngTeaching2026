@@ -1,15 +1,21 @@
 (function() {
+    const configLang = localStorage.getItem("language") || "zh-TW";
     const countdownDate = new Date("2026/5/29 23:59:59:999")
-    const elementCountdownDigit = document.querySelector('.countdown .digit')
+    const elementCountdownDigitTitle = document.querySelector('.countdown .digit .title')
+    const elementCountdownDigitData = document.querySelector('.countdown .digit .data')
+    const elementCountdownDigits = document.querySelectorAll('.countdown .digit .data .digit')
 
     const setCountdownDigit = (days, hours, minutes, seconds, timerID) => {
         if (days <= 0) {
-            elementCountdownDigit.innerHTML = `<p><span class="title countdown-end">志工報名已結束</span></p>`
+            elementCountdownDigitTitle.classList.add('countdown-end')
+            elementCountdownDigitTitle.textContent = configLang == "zh-TW" ? "志工報名已結束" : "The Volunteer Registration Period is over."
+            elementCountdownDigitData.classList.add('display-none')
+            elementCountdownDigits.forEach(item => item.textContent = '')
             clearInterval(timerID)
             return
         }
-
-        elementCountdownDigit.innerHTML = `<p><span class="title">志工報名結束倒數：</span>${days}<span class="day">日</span>${hours}<span class="hour">時</span>${minutes}<span class="minute">分</span>${seconds}<span class="second">秒</span></p>`
+        
+        [days, hours, minutes, seconds].map((value, index) => elementCountdownDigits[index].textContent = value)
     }
 
     const timer = setInterval(function() {
