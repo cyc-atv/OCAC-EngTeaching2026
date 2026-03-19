@@ -21,20 +21,20 @@
 
         toggleLanguage(configLang);
     }).finally(() => {
-        document.dispatchEvent(new CustomEvent("module-ready", { detail: {module: "main"}}))
+        document.dispatchEvent(new CustomEvent("module-ready", { detail: {module: "main"}}));
     });
 
     function toggleLanguage(lang) {
         //Change Language
         translation_data.forEach(item => {
-            if (!item.id || item.id == '') return
+            if (!item.id || item.id == '') return;
 
             if (item.isPageTitle) {
                 const currentPageFileName = location.pathname.split('/').pop()
                 if (item.id === currentPageFileName) {
-                    document.title = item[lang]
+                    document.title = item[lang];
                 }
-                return
+                return;
             }
 
             const elements = document.querySelectorAll(item.id)
@@ -42,8 +42,10 @@
                 if (element) {
                     if (element instanceof HTMLAnchorElement && item.attribute == "href") {
                         element.setAttribute("href", item[lang]);
+                    } else if (element instanceof HTMLImageElement && item.attribute == "src") {
+                        element.setAttribute("src", item[lang]);
                     } else if (item.isHTMLContent) {
-                        element.innerHTML = item[lang]
+                        element.innerHTML = item[lang];
                     } else {
                         element.textContent = item[lang];
                     }
