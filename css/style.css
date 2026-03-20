@@ -126,6 +126,10 @@ a:hover {
     list-style-type: trad-chinese-informal;
 }
 
+html[lang='en-US'] .list-level-1 {
+    list-style-type: upper-alpha;
+}
+
 .list-level-2 {
     list-style-type: decimal;
 }
@@ -133,6 +137,10 @@ a:hover {
 .list-level-3 {
     list-style-type: lower-alpha;
     list-style-type: cjk-heavenly-stem;
+}
+
+html[lang='en-US'] .list-level-3 {
+    list-style-type: lower-alpha;
 }
 
 .list-level-4 {
@@ -489,6 +497,10 @@ html[lang='en-US'] .main-nav .brand span {
     color: var(--text-primary-color);
     text-decoration: none;
     padding: 0.5em;
+}
+
+.footer .org-list .org-item a::after {
+    content: '';
 }
 
 .footer .org-list .org-item a:hover {
