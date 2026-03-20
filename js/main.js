@@ -32,7 +32,7 @@
             if (!item.id || item.id == '') return;
 
             if (item.isPageTitle) {
-                const currentPageFileName = location.pathname.split('/').pop()
+                const currentPageFileName = location.pathname.split('/').pop() || 'index.html'
                 if (item.id === currentPageFileName) {
                     document.title = item[lang];
                 }
@@ -57,4 +57,22 @@
 
         localStorage.setItem("language", lang);
     }
+
+    const navBarHeight = document.querySelector('.main-nav').offsetHeight
+
+    document.querySelectorAll('.main-nav .menu-list a').forEach((menuButton) => {
+        menuButton.addEventListener('click', (e) => {
+            var arrRoute = menuButton.getAttribute('href').split('#')
+
+            if ((document.location.pathname.split('/').pop() || 'index.html') === arrRoute[0]) {
+                e.preventDefault()
+
+                var target = document.querySelector(`a[name=${arrRoute[1]}]`) || document.querySelector(`.${arrRoute[1]}`)
+                window.scrollTo({
+                    top: target.offsetTop - navBarHeight,
+                    behavior: "smooth"
+                })
+            }
+        })
+    })
 })()
