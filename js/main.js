@@ -25,6 +25,8 @@
     });
 
     function toggleLanguage(lang) {
+        document.documentElement.lang = lang
+
         //Change Language
         translation_data.forEach(item => {
             if (!item.id || item.id == '') return;

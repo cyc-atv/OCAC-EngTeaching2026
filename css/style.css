@@ -233,6 +233,11 @@ a:hover {
     font-size: 1.2em;
 }
 
+html[lang='en-US'] .main-nav .brand span {
+    width: 20em;
+    font-size: 0.75em;
+}
+
 .main-nav .nav-menu {
     display: flex;
     align-items: center;
@@ -294,13 +299,13 @@ a:hover {
     display: flex;
     gap: 1em;
     transition: right ease 0.3s;
+    flex-direction: column;
 }
 
 #menu-toggle ~ .menu-list {
     position: absolute;
     top: var(--navbar-height);
     right: -100vw;
-    flex-direction: column;
 }
 
 #menu-toggle:checked ~ .menu-list {
@@ -360,7 +365,14 @@ a:hover {
     width: 100%;
 }
 
-@media (min-width: 700px) {
+@media screen and (min-width: 700px) and (max-width: 1099px) {
+    #menu-toggle:checked ~ .menu-list {
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+}
+
+@media screen and (min-width: 1100px) {
     .main-nav .nav-menu .menu-button-container {
         display: none;
     }
