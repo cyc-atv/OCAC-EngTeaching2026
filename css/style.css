@@ -22,9 +22,26 @@ a {
     color: var(--link-color);
 }
 
+a[href^="http"]:not(.button):not(.google-map-link)::after {
+    content: "↗";
+    font-size: 0.75em;
+    margin-left: 2px;
+    vertical-align: super;
+}
+
 a:hover {
     text-decoration: none;
     color: var(--link-hover-cover);
+}
+
+.google-map-link::after {
+    content: "";
+    display: inline-block;
+    width: 1em;
+    height: 1em;
+    background-image: url('../img/google-map-icon.png');
+    background-size: contain;
+    margin-left: 4px;
 }
 
 .button {
