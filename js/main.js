@@ -39,20 +39,24 @@
                 return;
             }
 
-            const elements = document.querySelectorAll(item.id)
-            elements.forEach((element) => {
-                if (element) {
-                    if (element instanceof HTMLAnchorElement && item.attribute == "href") {
-                        element.setAttribute("href", item[lang]);
-                    } else if (element instanceof HTMLImageElement && item.attribute == "src") {
-                        element.setAttribute("src", item[lang]);
-                    } else if (item.isHTMLContent) {
-                        element.innerHTML = item[lang];
-                    } else {
-                        element.textContent = item[lang];
+            try {
+                const elements = document.querySelectorAll(item.id)
+                elements.forEach((element) => {
+                    if (element) {
+                        if (element instanceof HTMLAnchorElement && item.attribute == "href") {
+                            element.setAttribute("href", item[lang]);
+                        } else if (element instanceof HTMLImageElement && item.attribute == "src") {
+                            element.setAttribute("src", item[lang]);
+                        } else if (item.isHTMLContent) {
+                            element.innerHTML = item[lang];
+                        } else {
+                            element.textContent = item[lang];
+                        }
                     }
-                }
-            })
+                })
+            } catch (e) {
+                console.warn(`翻譯模組: 無效的選擇器 ${item.id}`)
+            }
         })
 
         localStorage.setItem("language", lang);
