@@ -562,7 +562,11 @@ html[lang='en-US'] .main-nav .brand span {
     }
 }
 
-/* Main Content - News */
+/* Main Content */
+.main-content section {
+    margin: 3em 0;
+}
+
 .main-content .news .news-list {
     display: flex;
     flex-direction: column;
@@ -573,6 +577,51 @@ html[lang='en-US'] .main-nav .brand span {
     color: #ff0000;
     font-size: 1.2em;
     font-style: bold;
+}
+
+.main-content .video .video-content {
+    display: flex;
+    flex-direction: column;
+    gap: 2em;
+}
+
+.main-content .video .video-item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75em;
+    width: calc(50% - 2em);
+}
+
+.main-content .video .video-item iframe {
+    min-width: 560px;
+    min-height: 315px;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+}
+
+.main-content .video .video-item figcaption {
+    text-align: center;
+}
+
+.main-content .gallery .gallery-content {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 1em;
+}
+
+.main-content .gallery .gallery-item {
+    width: calc(50% - 1em);
+}
+
+@media (min-width: 700px) {
+    .main-content .video .video-content {
+        display: flex;
+        flex-direction: row;
+    }
+    .main-content .gallery .gallery-item {
+        width: calc(25% - 1em);
+    }
 }
 
 /* Training Location */
