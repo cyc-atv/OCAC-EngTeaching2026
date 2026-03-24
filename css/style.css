@@ -589,14 +589,15 @@ html[lang='en-US'] .main-nav .brand span {
     display: flex;
     flex-direction: column;
     gap: 0.75em;
-    width: calc(50% - 2em);
+    width: 100%;
+    justify-content: center;
+    margin: 0;
 }
 
 .main-content .video .video-item iframe {
-    min-width: 560px;
-    min-height: 315px;
     width: 100%;
     aspect-ratio: 16 / 9;
+    display: block;
 }
 
 .main-content .video .video-item figcaption {
@@ -608,10 +609,13 @@ html[lang='en-US'] .main-nav .brand span {
     flex-direction: row;
     flex-wrap: wrap;
     gap: 1em;
+    justify-content: center;
 }
 
 .main-content .gallery .gallery-item {
     width: calc(50% - 1em);
+    height: 225px;
+    object-fit: cover;
 }
 
 @media (min-width: 700px) {
@@ -619,8 +623,15 @@ html[lang='en-US'] .main-nav .brand span {
         display: flex;
         flex-direction: row;
     }
+
+    .main-content .video .video-item iframe {
+        min-width: 560px;
+        min-height: 315px;
+    }
+
     .main-content .gallery .gallery-item {
         width: calc(25% - 1em);
+        height: 200px;
     }
 }
 
