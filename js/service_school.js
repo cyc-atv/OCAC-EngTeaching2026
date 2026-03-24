@@ -109,6 +109,98 @@
         }
     }
 
+    class SchoolCard extends HTMLElement {
+        static get observedAttributes() {
+            return ["lang"]
+        }
+
+        connectedCallback() {
+            this._render()
+            this.addEventListener("click", () => this._onSelect())
+        }
+
+        attributeChangedCallback() {
+            if (this.isConnected) this._render()
+        }
+
+        _render() {
+            const lang = this.getAttribute('lang') || 'zh-TW';
+            const county = this.getAttribute('data-county');
+            const type = this.getAttribute('data-type');
+            const name = this.getAttribute('data-name');
+            const enName = this.getAttribute('data-en-name');
+            const image = this.getAttribute('data-image') || 'img/icon-no-image.png';
+
+            // 第一次渲染才建立 shadow root
+            // if (!this.shadowRoot) {
+            //     this.attachShadow({ mode: 'open' });
+            // }
+
+            this.innerHTML = `
+                <div class="school-item-content button">
+                    <img class="button-image" src="${image}">
+                    <div class="button-content">
+                        <h3>${name}<span class="sub-title">${enName}</span></h3>
+                        <p class="button-description">${COUNTY[county][lang]} | ${SCHOOL_TYPE[type][lang]}</p>
+                    </div>
+                </div>
+            `
+        }
+
+        _onSelect() {
+            this.dispatchEvent(new CustomEvent('school-selected', {
+                bubbles: true,
+                composed: true,
+                detail: {
+                    name:    this.getAttribute('data-name'),
+                    enName:  this.getAttribute('data-en-name'),
+                    county:  this.getAttribute('data-county'),
+                    type:    this.getAttribute('data-type'),
+                    image:   this.getAttribute('data-image'),
+                    introduction:   this.getAttribute('data-intro'),
+                    site:    this.getAttribute('data-site'),
+                    address: this.getAttribute('data-address'),
+                }
+            }))
+        }
+    }
+
+    class SchoolDetail extends HTMLElement {
+        connectedCallback() {
+            // this.attachShadow({mode: "open"})
+            this._renderEmpty()
+
+            document.addEventListener('school-selected', (e) => {
+                this._renderDetail(e.detail)
+            })
+        }
+
+        _renderEmpty() {
+            this.innerHTML = `
+                <style>
+                    :host { display: none; }
+                </style>
+            `
+        }
+
+        _renderDetail(school) {
+            const lang = document.querySelector('#lang-toggle')?.dataset.lang || 'zh-TW';
+            this.innerHTML = `
+                <div class="school-detail">
+                    <h2>${school.name}<p class="sub-title">${school.enName}</p></h2>
+                    <p class="category">${COUNTY[school.county][lang]} | ${SCHOOL_TYPE[school.type][lang]}</p>
+                    ${school.image ? `<img class="school-image" src="${school.image}" alt="${school.name}">` : ''}
+                    <p>${markdownToHTML(school.introduction)}</p>
+                    <a class="site-link button" href="${school.site}" target="_blank" rel="noopener noreferrer">了解更多</a>
+                    <a class="google-maps-link button" href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(school.address)}" target="_blank" rel="noopener noreferrer">在 Google 地圖中查看</a>
+                </div>
+            `
+        }
+    }
+
+    customElements.define('school-card', SchoolCard)
+    customElements.define('school-detail', SchoolDetail)
+
     fetch("./js/data.json", { cache: 'no-cache' }).then(response => response.json()).then(data => {
         const configLang = localStorage.getItem("language") || "zh-TW";
         const elementLangToggle = document.querySelector('#lang-toggle');
@@ -116,85 +208,80 @@
         const elementPageSchoolSelect = document.querySelector('.school .school-select')
         const elementPageSchoolIntroduction = document.querySelector('.school .school-introduction')
 
-        const elementSelection = document.querySelectorAll('.school .school-select .selection a')
         const elementSchoolList = document.querySelector('.school .school-select .school-list')
 
-        const elementSchoolIntroductionArticleContent = document.querySelector('.school .school-introduction .article-content')
         const elementSchoolIntroductionButtonBack = document.querySelectorAll('.school .school-introduction-button-back')
 
         //data to School List
         data.school.forEach(item => {
-            const elementSchoolItem = document.createElement('div')
+            const elementSchoolItem = document.createElement('school-card')
             elementSchoolItem.classList.add('school-item', item.county, item.type)
-            elementSchoolItem.setAttribute('data-school-name', item.school_name)
-            elementSchoolItem.setAttribute('data-school-county', item.county)
-            elementSchoolItem.setAttribute('data-school-type', item.type)
+            elementSchoolItem.setAttribute('lang', configLang)
+            elementSchoolItem.setAttribute('data-name', item.school_name)
+            elementSchoolItem.setAttribute('data-en-name', item.school_en_name)
+            elementSchoolItem.setAttribute('data-county', item.county)
+            elementSchoolItem.setAttribute('data-type', item.type)
+            elementSchoolItem.setAttribute('data-image', item.image || '')
+            elementSchoolItem.setAttribute('data-intro', item.introduction || '')
+            elementSchoolItem.setAttribute('data-site', item.site || '')
+            elementSchoolItem.setAttribute('data-address', item.address || '')
 
-            elementSchoolItem.innerHTML = `<div class="school-item-content button"><img class="button-image" src="${item.image ? item.image : 'img/icon-no-image.png'}"><div class="button-content"><h3>${item.school_name}<span class="sub-title">${item.school_en_name}</span></h3><p class="button-description">${COUNTY[item.county][configLang]} | ${SCHOOL_TYPE[item.type][configLang]}</p></div></div>`
-
-            elementSchoolItem.addEventListener('click', (e) => {
-                var elementItem = e.currentTarget
-                // Generate School Detail Page
-                var schoolItem = data.school.filter(school => school.school_name == elementItem.dataset.schoolName && school.county == elementItem.dataset.schoolCounty && school.type == elementItem.dataset.schoolType)[0]
-                
-                elementSchoolIntroductionArticleContent.dataset.schoolName = schoolItem.school_name
-                elementSchoolIntroductionArticleContent.dataset.county = schoolItem.county
-                elementSchoolIntroductionArticleContent.dataset.type = schoolItem.type
-                elementSchoolIntroductionArticleContent.innerHTML = `
-                    <h2>${schoolItem.school_name}<p class="sub-title">${schoolItem.school_en_name}</p></h2>
-                    <p class="category">${COUNTY[schoolItem.county][configLang]} | ${SCHOOL_TYPE[schoolItem.type][configLang]}</p>
-                    ${schoolItem.image ? `<img class="school-image" src="${schoolItem.image}" alt="${schoolItem.school_name}">` : ''}
-                    <p>${markdownToHTML(schoolItem.introduction)}</p>
-                    <a class="site-link button" href="${schoolItem.site}" target="_blank" rel="noopener noreferrer">了解更多</a>
-                    <a class="google-maps-link button" href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(schoolItem.address)}" target="_blank" rel="noopener noreferrer">在 Google 地圖中查看</a>
-                `
-
-                elementPageSchoolSelect.style.display = 'none'
-                elementPageSchoolIntroduction.style.display = 'block'
-            })
             elementSchoolList.appendChild(elementSchoolItem)
         })
 
-        var isoSchoolList = new Isotope('.school .school-list' , {
-            itemSelector: '.school-item',
-        })
+        const elementSelection = document.querySelectorAll('.school .school-select .selection a')
 
-        elementLangToggle.addEventListener('change', () => {
+        elementLangToggle.addEventListener('change', (e) => {
+            var lang = e.target.dataset.lang || "zh-TW"
+
             elementSelection.forEach(link => {
                 if (link.classList.contains('county')) {
-                    link.textContent = COUNTY[link.dataset.filter][elementLangToggle.dataset.lang]
+                    link.textContent = COUNTY[link.dataset.filter][lang]
                 }
                 if (link.classList.contains('school-type')) {
-                    link.textContent = SCHOOL_TYPE[link.dataset.filter][elementLangToggle.dataset.lang]
+                    link.textContent = SCHOOL_TYPE[link.dataset.filter][lang]
                 }
                 if (link.classList.contains('all')) {
-                    link.textContent = elementLangToggle.dataset.lang == "zh-TW" ? '顯示所有選項' : 'All'
+                    link.textContent = lang == "zh-TW" ? '顯示所有選項' : 'All'
                 }
             })
 
-            document.querySelector('.school .school-introduction .category').textContent = `${COUNTY[elementSchoolIntroductionArticleContent.dataset.county][elementLangToggle.dataset.lang]} | ${SCHOOL_TYPE[elementSchoolIntroductionArticleContent.dataset.type][elementLangToggle.dataset.lang]}`
+            document.querySelectorAll('school-card').forEach(card => card.setAttribute('lang', lang || "zh-TW"))
         })
 
-        elementSelection.forEach(link => link.addEventListener('click', (e) => {
-            e.preventDefault()
+        requestAnimationFrame(() => {
+            requestAnimationFrame(() => {
+                var isoSchoolList = new Isotope('.school .school-list' , {
+                    itemSelector: '.school-item',
+                })
 
-            isoSchoolList.arrange({
-                filter: function(item) {
-                    var filterText = link.dataset.filter
-                    if (filterText == "all") {
-                        return true
-                    }
+                elementSelection.forEach(link => link.addEventListener('click', (e) => {
+                    e.preventDefault()
 
-                    return item.classList.contains(filterText)
-                }
+                    isoSchoolList.arrange({
+                        filter: function(item) {
+                            var filterText = link.dataset.filter
+                            if (filterText == "all") {
+                                return true
+                            }
+
+                            return item.classList.contains(filterText)
+                        }
+                    })
+                }))
             })
-        }))
+        })
+
+        document.addEventListener('school-selected', (e) => {
+            elementPageSchoolSelect.classList.add('display-none');
+            elementPageSchoolIntroduction.classList.remove('display-none');
+        });
 
         elementSchoolIntroductionButtonBack.forEach(button => {
             button.addEventListener('click', (e) => {
                 e.preventDefault()
-                elementPageSchoolSelect.style.display = 'block'
-                elementPageSchoolIntroduction.style.display = 'none'
+                elementPageSchoolSelect.classList.remove('display-none');
+                elementPageSchoolIntroduction.classList.add('display-none');
             })
         })
     }).finally(() => {

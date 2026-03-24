@@ -612,14 +612,17 @@ html[lang='en-US'] .main-nav .brand span {
     width: 100%;
 }
 
-.page-content .school .school-select .school-item {
+.page-content .school .school-select .school-item,
+.page-content .school .school-select school-card {
+    display: block;
     padding: 0.5em;
     width: 22.5%;
     height: 12em;
     cursor: pointer;
 }
 
-.page-content .school .school-select .school-item .school-item-content {
+.page-content .school .school-select .school-item .school-item-content,
+.page-content .school .school-select school-card .school-item-content {
     border: 1px solid var(--primary-color);
     border-radius: 4px;
     padding: 1em;
@@ -627,37 +630,40 @@ html[lang='en-US'] .main-nav .brand span {
     transition: all 0.2s ease;
 }
 
-.page-content .school .school-select .school-item .school-item-content:hover {
+.page-content .school .school-select .school-item .school-item-content:hover,
+.page-content .school .school-select school-card .school-item-content:hover {
     background-color: var(--primary-color);
     color: #fff;
 }
 
-.page-content .school .school-select .school-item .school-item-content h3 {
+.page-content .school .school-select .school-item .school-item-content h3,
+.page-content .school .school-select school-card .school-item-content h3 {
     display: flex;
     flex-direction: column;
 }
 
-.page-content .school .school-introduction {
-    display: none;
+.page-content .school .school-introduction school-detail {
+    display: block;
+    margin: 3em 0;
 }
 
-.page-content .school .school-introduction h2 .sub-title {
+.page-content .school .school-introduction school-detail h2 .sub-title {
     margin: 0.25em 0;
     font-size: 0.75em;
     color: var(--text-secondary-color);
 }
 
-.page-content .school .school-introduction .school-image {
+.page-content .school .school-introduction school-detail .school-image {
     width: 100%;
     height: auto;
 }
 
 @media (min-width: 700px) {
-    .page-content .school .school-introduction .school-image {
+    .page-content .school .school-introduction school-detail .school-image {
         max-width: 600px;
     }
 
-    .page-content .school .school-introduction h2 .sub-title {
+    .page-content .school .school-introduction school-detail h2 .sub-title {
         display: inline-block;
         margin: 0 0.25em;
     }
