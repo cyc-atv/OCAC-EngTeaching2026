@@ -909,6 +909,15 @@ html[lang='en-US'] .main-nav .brand span {
     margin: 0 0.35em 0 0.15em;
 }
 
+.volunteer .poster {
+    text-align: center;
+}
+
+.volunteer .poster .poster-image {
+    width: 100%;
+    height: auto;
+}
+
 .volunteer .form .form-link {
     display: flex;
     flex-direction: column;
@@ -933,4 +942,10 @@ html[lang='en-US'] .main-nav .brand span {
 
 .volunteer .form .secondary a {
     width: calc(50% - 0.25em);
+}
+
+@media (min-width: 700px) {
+    .volunteer .poster .poster-image {
+        width: 600px;
+    }
 }
