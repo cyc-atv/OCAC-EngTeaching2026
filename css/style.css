@@ -573,6 +573,40 @@ html[lang='en-US'] .main-nav .brand span {
     gap: 1em;
 }
 
+.main-content .news .news-item {
+    display: block;
+    border: 1px solid var(--primary-color);
+    border-radius: 4px;
+}
+
+.main-content .news .news-item .news-item-container {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5em;
+}
+
+.main-content .news .news-item .news-item-container .news-header {
+    cursor: pointer;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 0.5em 1em;
+    transition: all 0.3s;
+}
+
+.main-content .news .news-item .news-item-container .news-header:hover {
+    color: #fff;
+    background-color: var(--secondary-color);
+}
+
+.main-content .news .news-item .news-item-container .news-title {
+    font-size: 1.15em;
+}
+
+.main-content .news .news-item .news-item-container .news-detail {
+    margin: 1em 2em;
+}
+
 .main-content .stay-tuned {
     color: #ff0000;
     font-size: 1.2em;
