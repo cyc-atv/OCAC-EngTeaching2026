@@ -22,7 +22,7 @@
                         <h1 class="news-title">${title}</h1>
                         <p class="news-date">${date}</p>
                     </div>
-                    <div class="news-detail ${this._isShowDetail ? '' : 'display-none'}">
+                    <div class="news-detail ${this._isShowDetail ? '' : 'display-none'} markdown-content">
                         ${markdownToHTML(description)}
                     </div>
                 </div>

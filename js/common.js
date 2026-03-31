@@ -103,7 +103,7 @@ function markdownToHTML(markdown, isLinkBlank = true) {
     if (inUL) result.push('</ul>')
     if (inOL) result.push('</ol>')
 
-    let html = result.join('\n')
+    let html = result.join('<br>')
 
     // Headers
     html = html.replace(/^(#{1,6})\s*(.+)$/gm, (match, hashes, content) => {

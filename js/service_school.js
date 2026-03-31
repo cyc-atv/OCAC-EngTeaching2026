@@ -190,7 +190,7 @@
                     <h2>${school.name}<p class="sub-title">${school.enName}</p></h2>
                     <p class="category">${COUNTY[school.county][lang]} | ${SCHOOL_TYPE[school.type][lang]}</p>
                     ${school.image ? `<img class="school-image" src="${school.image}" alt="${school.name}">` : ''}
-                    <p>${markdownToHTML(school.introduction)}</p>
+                    <p class="markdown-content">${markdownToHTML(school.introduction)}</p>
                     <a class="site-link button" href="${school.site}" target="_blank" rel="noopener noreferrer">了解更多</a>
                     <a class="google-maps-link button" href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(school.address)}" target="_blank" rel="noopener noreferrer">在 Google 地圖中查看</a>
                 </div>

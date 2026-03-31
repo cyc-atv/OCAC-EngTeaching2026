@@ -570,7 +570,7 @@ html[lang='en-US'] .main-nav .brand span {
 .main-content .news .news-list {
     display: flex;
     flex-direction: column;
-    gap: 1em;
+    gap: 0.15em;
 }
 
 .main-content .news .news-item {

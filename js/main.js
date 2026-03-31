@@ -49,6 +49,8 @@
                             element.setAttribute("src", item[lang]);
                         } else if (item.isHTMLContent) {
                             element.innerHTML = item[lang];
+                        } else if (element.classList.contains('markdown-content')) {
+                            element.innerHTML = markdownToHTML(item[lang]);
                         } else {
                             element.textContent = item[lang];
                         }
