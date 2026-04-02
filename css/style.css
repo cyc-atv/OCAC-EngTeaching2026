@@ -23,8 +23,13 @@ a {
 }
 
 a[href^="http"]:not(.button):not(.google-map-link)::after {
-    content: "↗";
+    content: "";
     font-size: 0.75em;
+    display: inline-block;
+    width: 1em;
+    height: 1em;
+    background-image: url('../img/link_external.svg');
+    background-size: cover;
     margin-left: 2px;
     vertical-align: super;
 }
@@ -37,10 +42,10 @@ a:hover {
 .google-map-link::after {
     content: "";
     display: inline-block;
+    background-image: url('../img/google-map-icon.png');
+    background-size: cover;
     width: 1em;
     height: 1em;
-    background-image: url('../img/google-map-icon.png');
-    background-size: contain;
     margin-left: 4px;
 }
 
@@ -906,8 +911,14 @@ html[lang='en-US'] .main-nav .brand span {
         flex-direction: row;
     }
 
+    /* .faq .content.weather .location-weather .time-slot {
+        
+    } */
+
     .faq .content.weather .location-weather .time-slot .weather-data-list {
         flex-direction: row;
+        flex: 1;
+        align-content: flex-start;
     }
 
     .faq .content.weather .location-weather .time-slot .weather-data-list .weather-data-item {
