@@ -520,6 +520,7 @@ html[lang='en-US'] .main-nav .brand span {
 
 .footer .org-list .org-item a::after {
     content: '';
+    display: none;
 }
 
 .footer .org-list .org-item a:hover {
