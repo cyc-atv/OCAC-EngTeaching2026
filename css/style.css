@@ -1,11 +1,16 @@
 * {
     --primary-color: #344f48;
     --secondary-color: #038d5a;
-    --text-primary-color: #052105;
+    --text-primary-color: #221814;
     --text-secondary-color: #40514d;
     --link-color: #116ec5;
     --link-hover-cover: #260953;
+    --navbar-background-color: #36783c;
+    --navbar-link-color: #fff;
     --navbar-height: 3.5em;
+
+    --background-color: #f4f9f6;
+    --footer-background-color: #8ecba2;
 }
 
 *, *::before, *::after {
@@ -14,6 +19,7 @@
 
 body {
     color: var(--text-primary-color);
+    background-color: var(--background-color);
     margin-top: var(--navbar-height);
 }
 
@@ -241,8 +247,7 @@ html[lang='en-US'] .list-level-3 {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
-    color: #FFF;
+    background: var(--navbar-background-color);
     height: var(--navbar-height);
     width: 100%;
     padding: 0 1.5em;
@@ -257,7 +262,7 @@ html[lang='en-US'] .list-level-3 {
     display: flex;
     align-items: center;
     gap: 0.5em;
-    color: #fff;
+    color: var(--navbar-link-color);
     text-decoration: none;
     font-weight: bold;
     font-size: 1.2em;
@@ -354,13 +359,14 @@ html[lang='en-US'] .main-nav .brand span {
 }
 
 .lang-button-label {
+    color: var(--navbar-link-color);
     border: 2px solid #fff;
     cursor: pointer;
     padding: 2px;
 }
 
 .menu-list a {
-    color: #fff;
+    color: var(--navbar-link-color);
     text-decoration: none;
     font-weight: bold;
     padding: 0.5em 0.1em;
@@ -442,7 +448,7 @@ html[lang='en-US'] .main-nav .brand span {
 
 @media (min-width: 1100px) {
     .main-header {
-        height: 60vh;
+        height: 75vh;
         min-height: 350px;
         width: 100%;
         background-color: var(--secondary-color);
@@ -489,10 +495,15 @@ html[lang='en-US'] .main-nav .brand span {
 
 /* Footer */
 .footer {
+    background: var(--footer-background-color);
+}
+
+.footer .container{
     display: flex;
     flex-direction: column-reverse;
     gap: 2em;
-    margin: 1.5em auto;
+    margin: 1.5em auto 0 auto;
+    padding-top: 1em;
 }
 
 .footer .right h1 {
@@ -550,11 +561,11 @@ html[lang='en-US'] .main-nav .brand span {
 }
 
 @media (min-width: 700px) {
-    .footer {
+    .footer .container {
         flex-direction: row;
     }
     
-    .footer > * {
+    .footer .container > * {
         flex: 1;
     }
 
