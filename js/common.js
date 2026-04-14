@@ -125,3 +125,161 @@ function markdownToHTML(markdown, isLinkBlank = true) {
 
     return html
 }
+
+(function() {
+    class SiteFooter extends HTMLElement {
+        connectedCallback() {
+            this._render()
+        }
+
+        _render() {
+            this.innerHTML = `
+                <style>
+                    @import url('css/style.css');
+
+                    .footer {
+                        background: var(--footer-background-color, #fff);
+                        color: var(--footer-text-color, #000);
+                    }
+
+                    .footer .container{
+                        display: flex;
+                        flex-direction: column-reverse;
+                        gap: 2em;
+                        margin: 1em auto 0 auto;
+                        padding-top: 1.5em;
+                        padding-bottom: 1.5em;
+                        max-width: 1200px;
+                        width: 100%;
+                    }
+
+                    .footer .left {
+                        padding: 0 0.5em;
+                    }
+
+                    .footer .right h1 {
+                        margin: 0;
+                        padding-bottom: 1em;
+                        font-size: 1.5em;
+                        text-align: center;
+                    }
+
+                    .footer .org-list {
+                        display: flex;
+                        flex-direction: column;
+                        gap: 1em;
+                    }
+
+                    .footer .org-list .org-item a {
+                        display: flex;
+                        flex-direction: row;
+                        align-items: center;
+                        gap: 1em;
+                        color: var(--text-primary-color);
+                        text-decoration: none;
+                        padding: 0.5em;
+                    }
+
+                    .footer .org-list .org-item a::after {
+                        content: '';
+                        display: none;
+                    }
+
+                    .footer .org-list .org-item a:hover {
+                        color: #fff;
+                        background-color: var(--primary-color);
+                        border-radius: 4px;
+                    }
+
+                    .footer .org-item-nameplate h2 {
+                        font-size: 1.2em;
+                        margin: 0;
+                    }
+
+                    .footer .org-item-nameplate p {
+                        margin: 0;
+                        font-size: 0.9em;
+                        color: var(--text-secondary-color);
+                    }
+
+                    .footer .org-item a:hover .org-item-nameplate p {
+                        color:#fff;
+                    }
+
+                    .footer .org-list .org-item img {
+                        width: 48px;
+                        height: auto;
+                    }
+
+                    @media (min-width: 700px) {
+                        .footer .container {
+                            flex-direction: row;
+                        }
+                        
+                        .footer .container > * {
+                            flex: 1;
+                        }
+
+                        .footer .left {
+                            padding: 0;
+                        }
+
+                        .footer .org-list {
+                            flex-direction: row;
+                        }
+
+                        .footer .org-list .org-item a {
+                            flex-direction: column;
+                            text-align: center;
+                        }
+                    }
+                </style>
+                <footer class="footer">
+                    <div class="container">
+                        <div class="left">
+                            <p>承辦單位：嚕拉拉旅行社有限公司</p>
+                            <p>聯絡地址：新竹市北區演藝路27之1號</p>
+                            <p><span>聯絡電話：</span><a href="tel:+88635326931">(03)532-6931</a></p>
+                            <p><span>E-Mail：</span><a href="mailto:090714@cyc.tw">090714@cyc.tw</a></p>
+                            <p>服務時間 : 週一至週五 上午 9:00~下午 06:00</p>
+                        </div>
+                        <div class="right">
+                            <h1>主辦單位</h1>
+                            <div class="org-list">
+                                <div class="org-item ocac">
+                                    <a href="https://www.ocac.gov.tw/" target="_blank" rel="noopener noreferrer">
+                                        <img src="img/organization/ocac-icon.png">
+                                        <div class="org-item-nameplate">
+                                            <h2>僑務委員會</h2>
+                                            <p>Overseas Community Affairs Council, Republic of China (TAIWAN)</p>
+                                        </div>
+                                    </a>
+                                </div>
+                                <div class="org-item moe">
+                                    <a href="https://www.moe.gov.tw/" target="_blank" rel="noopener noreferrer">
+                                        <img src="img/organization/moe-icon.png">
+                                        <div class="org-item-nameplate">
+                                            <h2>教育部</h2>
+                                            <p>Ministry of Education, Republic of China (TAIWAN)</p>
+                                        </div>
+                                    </a>
+                                </div>
+                                <div class="org-item hakka">
+                                    <a href="https://www.hakka.gov.tw/" target="_blank" rel="noopener noreferrer">
+                                        <img src="img/organization/hakka-icon.png">
+                                        <div class="org-item-nameplate">
+                                            <h2>客家委員會</h2>
+                                            <p>Hakka Affairs Council, Republic of China (TAIWAN)</p>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </footer>
+            `
+        }
+    }
+
+    customElements.define("site-footer", SiteFooter)
+})()
