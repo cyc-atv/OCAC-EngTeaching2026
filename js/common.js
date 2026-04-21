@@ -127,6 +127,47 @@ function markdownToHTML(markdown, isLinkBlank = true) {
 }
 
 (function() {
+    class PageHeader extends HTMLElement {
+        connectedCallback() {
+            this._render()
+        }
+
+        _render() {
+            const title = this.getAttribute('title') || ''
+            this.innerHTML = `
+                <style>
+                    @import url('css/style.css');
+
+                    .page-header {
+                        background-image: url('img/Header_Background.png');
+                        background-size: cover;
+                        background-position: center;
+                        height: 8em;
+                        display: flex;
+                    }
+
+                    .page-header .header-content {
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        width: 100%;
+                    }
+
+                    .page-header .header-content h1 {
+                        color: var(--primary-color);
+                        font-size: 2.5em;
+                        font-weight: bold;
+                    }
+                </style>
+                <header class="page-header">
+                    <div class="header-content">
+                        <h1>${title}</h1>
+                    </div>
+                </header>
+            `
+        }
+    }
+
     class SiteFooter extends HTMLElement {
         connectedCallback() {
             this._render()
@@ -281,5 +322,6 @@ function markdownToHTML(markdown, isLinkBlank = true) {
         }
     }
 
+    customElements.define("page-header", PageHeader)
     customElements.define("site-footer", SiteFooter)
 })()

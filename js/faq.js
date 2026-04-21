@@ -1,4 +1,40 @@
 (function(){
+    class WeatherDataItem extends HTMLElement {
+        connectedCallback() {
+            const scriptTag = this.querySelector('script[type="application/json"]')
+
+            if (!scriptTag?.textContent.trim()) return
+
+            try {
+                const slot = JSON.parse(scriptTag.textContent)
+
+                this.innerHTML = `
+                <style>
+                    weather-data-item {
+                        display: block;
+                        flex: 1;
+                    }
+                </style>
+                <div class="time-slot">
+                    <p class="time-stamp"><span class="start-time">${slot.startTime}</span>~<span class="end-time">${slot.endTime}</span></p>
+                    <ul class="weather-data-list">
+                        <li class="weather-data-item Wx"><span class="data-title">天氣：</span><span class="data-shower">${slot.weather.Wx.parameterName}</span></li>
+                        <li class="weather-data-item PoP"><span class="data-title">降雨機率：</span><span class="data-shower">${slot.weather.PoP.parameterName}&nbsp;%</span></li>
+                        <li class="weather-data-item MinT"><span class="data-title">最低氣溫：</span><span class="data-shower">${slot.weather.MinT.parameterName}&nbsp;&#8451;</span></li>
+                        <li class="weather-data-item MaxT"><span class="data-title">最高氣溫：</span><span class="data-shower">${slot.weather.MaxT.parameterName}&nbsp;&#8451;</span></li>
+                        <li class="weather-data-item CI"><span class="data-title">舒適度：</span><span class="data-shower">${slot.weather.CI.parameterName}</span></li>
+                    </ul>
+                </div>
+            `
+            } catch (e) {
+                console.error("Failed to parse weather data:", e)
+                return
+            }
+        }
+    }
+
+    customElements.define('weather-data-item', WeatherDataItem)
+
     const elementFaqIndexLink = document.querySelectorAll('.page-content .faq .index li a')
     const elementFaqContent = document.querySelectorAll('.page-content .faq .content')
 
@@ -66,16 +102,11 @@
                 <h3 class="location-name">${location.locationName}</h3>
                 <div class="location-weather">
                 ${timeSlots.map(slot => {
-                    return `<div class="time-slot">
-                        <p class="time-stamp"><span class="start-time">${slot.startTime}</span>~<span class="end-time">${slot.endTime}</span></p>
-                        <ul class="weather-data-list">
-                            <li class="weather-data-item Wx"><span class="data-title">天氣：</span><span class="data-shower">${slot.weather.Wx.parameterName}</span></li>
-                            <li class="weather-data-item PoP"><span class="data-title">降雨機率：</span><span class="data-shower">${slot.weather.PoP.parameterName}&nbsp;%</span></li>
-                            <li class="weather-data-item MinT"><span class="data-title">最低氣溫：</span><span class="data-shower">${slot.weather.MinT.parameterName}&nbsp;&#8451;</span></li>
-                            <li class="weather-data-item MaxT"><span class="data-title">最高氣溫：</span><span class="data-shower">${slot.weather.MaxT.parameterName}&nbsp;&#8451;</span></li>
-                            <li class="weather-data-item CI"><span class="data-title">舒適度：</span><span class="data-shower">${slot.weather.CI.parameterName}</span></li>
-                        </ul>
-                    </div>`
+                    return `<weather-data-item>
+                        <script type="application/json">
+                            ${JSON.stringify(slot)}
+                        </script>
+                    </weather-data-item>`
                 }).join('')}
                 </div>
             </div>`
@@ -84,6 +115,11 @@
         elementWeatherPage.innerHTML = content
     }).catch((e) => {
         console.log(e)
+        elementWeatherPage.innerHTML = `
+            <p class="error-message">
+                <span>非常抱歉，目前無法提供天氣資料。</span><br>
+                <span>We are sorry for the inconvenience.</span>
+            </p>`
     }).finally(() => {
         document.dispatchEvent(new CustomEvent("module-ready", { detail: {module: "weather"}}))
     })
