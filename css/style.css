@@ -132,29 +132,29 @@ a:hover {
     margin: 0.25em 0;
 }
 
-.list-level-1 {
+ol.list-level-1 {
     list-style-type: decimal;
     list-style-type: trad-chinese-informal;
 }
 
-html[lang='en-US'] .list-level-1 {
+html[lang='en-US'] ol.list-level-1 {
     list-style-type: upper-alpha;
 }
 
-.list-level-2 {
+ol.list-level-2 {
     list-style-type: decimal;
 }
 
-.list-level-3 {
+ol.list-level-3 {
     list-style-type: lower-alpha;
     list-style-type: cjk-heavenly-stem;
 }
 
-html[lang='en-US'] .list-level-3 {
+html[lang='en-US'] ol.list-level-3 {
     list-style-type: lower-alpha;
 }
 
-.list-level-4 {
+ol.list-level-4 {
     list-style-type: upper-roman
 }
 
@@ -874,4 +874,41 @@ html[lang='en-US'] .main-nav .brand span {
 
 .registration article {
     margin: 2em 0;
+}
+
+.page-content .mission .video-content {
+    display: flex;
+    flex-direction: column;
+    gap: 2em;
+}
+
+.page-content .mission .video-item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75em;
+    width: 100%;
+    justify-content: center;
+    margin: 0;
+}
+
+.page-content .mission .video-item iframe {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    display: block;
+}
+
+@media (min-width: 700px) {
+    .page-content .mission .video-content {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+
+    .page-content .mission .video-item {
+        width: calc(25% - 0.75em / 2);
+    }
+
+    .page-content .mission .video-item iframe {
+        width: 100%;
+    }
 }
