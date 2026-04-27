@@ -871,3 +871,7 @@ html[lang='en-US'] .main-nav .brand span {
     gap: 1em;
     margin-bottom: 4em;
 }
+
+.registration article {
+    margin: 2em 0;
+}
