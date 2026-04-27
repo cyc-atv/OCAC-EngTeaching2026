@@ -129,12 +129,13 @@ function markdownToHTML(markdown, isLinkBlank = true) {
 (function() {
     class PageHeader extends HTMLElement {
         connectedCallback() {
+            this.attachShadow({ mode: 'open' })
             this._render()
         }
 
         _render() {
             const title = this.getAttribute('title') || ''
-            this.innerHTML = `
+            this.shadowRoot.innerHTML = `
                 <style>
                     @import url('css/style.css');
 
@@ -176,7 +177,6 @@ function markdownToHTML(markdown, isLinkBlank = true) {
         _render() {
             this.innerHTML = `
                 <style>
-                    @import url('css/style.css');
 
                     .footer {
                         background: var(--footer-background-color, #fff);
@@ -279,8 +279,8 @@ function markdownToHTML(markdown, isLinkBlank = true) {
                     <div class="container">
                         <div class="left">
                             <p>承辦單位：嚕拉拉旅行社有限公司</p>
-                            <p>聯絡地址：新竹市北區演藝路27之1號</p>
-                            <p><span>聯絡電話：</span><a href="tel:+88635326931">(03)532-6931</a></p>
+                            <p>聯絡地址：臺北市中山區民權東路二段69號</p>
+                            <p><span>聯絡電話：</span><a href="tel:+886225965619">(02)2596-5619</a></p>
                             <p><span>E-Mail：</span><a href="mailto:090714@cyc.tw">090714@cyc.tw</a></p>
                             <p>服務時間 : 週一至週五 上午 9:00~下午 06:00</p>
                         </div>

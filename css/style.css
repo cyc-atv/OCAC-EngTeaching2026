@@ -898,3 +898,10 @@ html[lang='en-US'] .main-nav .brand span {
         width: 600px;
     }
 }
+
+.travel .travel-navigation {
+    display: flex;
+    justify-content: center;
+    gap: 1em;
+    margin-bottom: 4em;
+}
