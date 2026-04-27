@@ -285,7 +285,7 @@ function markdownToHTML(markdown, isLinkBlank = true) {
                 <footer class="footer">
                     <div class="container">
                         <div class="left">
-                            <p>承辦單位：嚕拉拉旅行社有限公司</p>
+                            <p>承辦單位：嚕啦啦旅行社有限公司</p>
                             <p>聯絡地址：臺北市中山區民權東路二段69號</p>
                             <p><span>聯絡電話：</span><a href="tel:+886225965619">(02)2596-5619</a></p>
                             <p><span>E-Mail：</span><a href="mailto:090714@cyc.tw">090714@cyc.tw</a></p>
