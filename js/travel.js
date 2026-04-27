@@ -10,7 +10,6 @@
                     width: 100%;
                     border: 1px solid #ccc;
                     border-radius: 8px;
-                    padding: 1em;
                     display: flex;
                     flex-direction: column;
                 }
@@ -20,6 +19,17 @@
                     display: flex;
                     flex-direction: column;
                     gap: 0.5em;
+                    padding: 1em;
+                }
+
+                .travel-card-header:hover {
+                    background-color: var(--primary-color);
+                    color: #fff;
+                    border-radius: 8px;
+                }
+
+                .travel-card-header.show:hover {
+                    border-radius: 8px 8px 0 0;
                 }
 
                 .travel-card-header .travel-date {
@@ -34,6 +44,9 @@
 
                 .travel-card-content {
                     display: none;
+                    padding: 1em;
+                    background-color: var(--secondary-color);
+                    color: #fff;
                 }
                 
                 .travel-card-content.show {
@@ -77,6 +90,7 @@
             if (header) {
                 header.addEventListener('click', (e) => {
                     e.preventDefault()
+                    shadowRoot.querySelector('.travel-card-header')?.classList.toggle('show')
                     shadowRoot.querySelector('.travel-card-content')?.classList.toggle('show')
                 })
             }

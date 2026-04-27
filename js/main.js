@@ -51,6 +51,8 @@
                             element.innerHTML = item[lang];
                         } else if (element.classList.contains('markdown-content')) {
                             element.innerHTML = markdownToHTML(item[lang]);
+                        } else if (item.attribute != '') {
+                            element.setAttribute(item.attribute, item[lang]);
                         } else {
                             element.textContent = item[lang];
                         }

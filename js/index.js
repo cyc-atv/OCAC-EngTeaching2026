@@ -17,6 +17,42 @@
             const description = this.getAttribute('data-description')
 
             this.innerHTML = `
+                <style>
+                .news-item {
+                    display: block;
+                    border: 1px solid var(--primary-color);
+                    border-radius: 4px;
+                }
+
+                .news-item-container {
+                    display: flex;
+                    flex-direction: column;
+                }
+
+                .news-item-container .news-header {
+                    cursor: pointer;
+                    display: flex;
+                    flex-direction: row;
+                    justify-content: space-between;
+                    padding: 0.5em 1em;
+                    transition: all 0.3s;
+                }
+
+                .news-item-container .news-header:hover {
+                    color: #fff;
+                    background-color: var(--secondary-color);
+                }
+
+                .news-item-container .news-title {
+                    font-size: 1.15em;
+                }
+
+                .news-item-container .news-detail {
+                    padding: 1em 2em;
+                    background-color: var(--secondary-color);
+                    color: #fff;
+                }
+                </style>
                 <div class="news-item-container">
                     <div class="news-header">
                         <h1 class="news-title">${title}</h1>

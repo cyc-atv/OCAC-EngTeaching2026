@@ -128,8 +128,18 @@ function markdownToHTML(markdown, isLinkBlank = true) {
 
 (function() {
     class PageHeader extends HTMLElement {
+        static get observedAttributes() {
+            return ['title']
+        }
+        
         connectedCallback() {
             this._render()
+        }
+
+        attributeChangedCallback(name, oldValue, newValue) {
+            if (name === 'title' && oldValue !== newValue) {
+                this._render()
+            }
         }
 
         _render() {
