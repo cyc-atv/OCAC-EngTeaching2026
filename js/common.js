@@ -129,16 +129,13 @@ function markdownToHTML(markdown, isLinkBlank = true) {
 (function() {
     class PageHeader extends HTMLElement {
         connectedCallback() {
-            this.attachShadow({ mode: 'open' })
             this._render()
         }
 
         _render() {
             const title = this.getAttribute('title') || ''
-            this.shadowRoot.innerHTML = `
+            this.innerHTML = `
                 <style>
-                    @import url('css/style.css');
-
                     .page-header {
                         background-image: url('img/Header_Background.png');
                         background-size: cover;
