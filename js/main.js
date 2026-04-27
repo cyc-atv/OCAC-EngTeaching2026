@@ -57,7 +57,7 @@
                     }
                 })
             } catch (e) {
-                console.warn(`翻譯模組: 無效的選擇器 ${item.id}`)
+                // console.warn(`翻譯模組: 無效的選擇器 ${item.id}`)
             }
         })
 
