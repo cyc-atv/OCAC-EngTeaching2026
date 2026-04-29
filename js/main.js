@@ -1,6 +1,7 @@
 (function() {
     var translation_data = [];
     const elementLangToggle = document.querySelector('#lang-toggle');
+    const translationDataFileNameCommon = 'COMMON'
     
     fetch('./js/translation.json', { cache: 'no-cache' }).then(response => response.json()).then(data => {
         const configLang = localStorage.getItem("language") || "zh-TW";
@@ -24,6 +25,16 @@
         document.dispatchEvent(new CustomEvent("module-ready", { detail: {module: "main"}}));
     });
 
+    function getCurrentHtmlFileName() {
+        const path = window.location.pathname;
+        const last = path.split('/').filter(Boolean).at(-1);
+
+        if (!last) return 'index.html';
+        if (last.endsWith('.html')) return last;
+
+        return 'index.html';
+    }
+
     function toggleLanguage(lang) {
         document.documentElement.lang = lang
 
@@ -40,6 +51,10 @@
             }
 
             try {
+                if (item.fileName && (getCurrentHtmlFileName() != item.fileName || item.fileName != translationDataFileNameCommon)) {
+                    return
+                }
+
                 const elements = document.querySelectorAll(item.id)
                 elements.forEach((element) => {
                     if (element) {
