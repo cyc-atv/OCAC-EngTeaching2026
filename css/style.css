@@ -776,14 +776,15 @@ html[lang='en-US'] .main-nav .brand span {
     padding: 0.5em;
 }
 
+.faq .caution {
+    font-weight: bold;
+    color: #f00;
+}
+
 @media (min-width: 700px) {
     .faq .content.weather .location-weather {
         flex-direction: row;
     }
-
-    /* .faq .content.weather .location-weather .time-slot {
-        
-    } */
 
     .faq .content.weather .location-weather .time-slot .weather-data-list {
         flex-direction: row;
