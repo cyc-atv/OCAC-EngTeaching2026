@@ -51,7 +51,7 @@
             }
 
             try {
-                if (item.fileName && (getCurrentHtmlFileName() != item.fileName || item.fileName != translationDataFileNameCommon)) {
+                if (item.fileName && (getCurrentHtmlFileName() != item.fileName && item.fileName != translationDataFileNameCommon)) {
                     return
                 }
 
