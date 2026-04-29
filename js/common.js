@@ -272,6 +272,10 @@ function markdownToHTML(markdown, isLinkBlank = true) {
                             padding: 0;
                         }
 
+                        .footer .left .tel span[aria-hidden="true"] {
+                            padding: 0 0.05em;
+                        }
+
                         .footer .org-list {
                             flex-direction: row;
                         }
@@ -285,12 +289,17 @@ function markdownToHTML(markdown, isLinkBlank = true) {
                 <footer class="footer">
                     <div class="container">
                         <div class="left">
-                            <p>承辦單位：嚕啦啦旅行社有限公司</p>
-                            <p>聯絡地址：臺北市中山區民權東路二段69號</p>
-                            <p><span>聯絡電話：</span><a href="tel:+886225965619">(02)2596-5619 分機253</a></p>
-                            <p>聯絡人：陳林淳先生</p>
-                            <p><span>E-Mail：</span><a href="mailto:090714@cyc.tw">090714@cyc.tw</a></p>
-                            <p>服務時間 : 週一至週五 上午 9:00~下午 06:00</p>
+                            <p class="contractor">承辦單位：嚕啦啦旅行社有限公司</p>
+                            <p class="address">聯絡地址：臺北市中山區民權東路二段69號</p>
+                            <p class="tel">
+                                <span class="label">聯絡電話：</span>
+                                <a href="tel:+886225965619">(02)2596-5619</a>
+                                <span aria-hidden="true">/</span>
+                                <a href="tel:+886225965858">(02)2596-5858 分機253</a>
+                            </p>
+                            <p class="contact-person">聯絡人：陳林淳先生</p>
+                            <p class="e-mail"><span>E-Mail：</span><a href="mailto:090714@cyc.tw">090714@cyc.tw</a></p>
+                            <p class="service-time">服務時間 : 週一至週五 上午 9:00~下午 06:00</p>
                         </div>
                         <div class="right">
                             <h1>主辦單位</h1>
