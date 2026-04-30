@@ -743,6 +743,22 @@ html[lang='en-US'] .main-nav .brand span {
     }
 }
 
+.faq .weather-data-table .zh-TW {
+    display: block;
+}
+
+.faq .weather-data-table .en-US {
+    display: none;
+}
+
+html[lang='en-US'] .faq .weather-data-table .zh-TW {
+    display: none;
+}
+
+html[lang='en-US'] .faq .weather-data-table .en-US {
+    display: block;
+}
+
 .faq .content.weather .location-weather {
     width: 100%;
     display: flex;
@@ -806,6 +822,10 @@ html[lang='en-US'] .main-nav .brand span {
         padding: 4px;
         flex-direction: column;
         gap: 0.5em;
+    }
+
+    .faq .content.weather .en-US .location-weather .time-slot .weather-data-list {
+        flex-wrap: wrap;
     }
 }
 

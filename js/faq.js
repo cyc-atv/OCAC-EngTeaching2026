@@ -1,4 +1,4 @@
-(function(){
+(async function(){
     class WeatherDataItem extends HTMLElement {
         connectedCallback() {
             const scriptTag = this.querySelector('script[type="application/json"]')
@@ -70,57 +70,70 @@
         date.setDate(date.getDate() + 1)
         return date
     })())
-    fetch(`https://opendata.cwa.gov.tw/api/v1/rest/datastore/F-C0032-001?Authorization=CWA-495E346B-BDF3-4E17-BE80-3A98E93B7B11&format=JSON&locationName=%E8%87%BA%E5%8C%97%E5%B8%82,%E6%96%B0%E5%8C%97%E5%B8%82,%E6%A1%83%E5%9C%92%E5%B8%82,%E8%87%BA%E4%B8%AD%E5%B8%82,%E8%87%BA%E5%8D%97%E5%B8%82,%E9%AB%98%E9%9B%84%E5%B8%82,%E6%96%B0%E7%AB%B9%E7%B8%A3,%E6%96%B0%E7%AB%B9%E5%B8%82,%E8%8B%97%E6%A0%97%E7%B8%A3,%E5%BD%B0%E5%8C%96%E7%B8%A3,%E5%8D%97%E6%8A%95%E7%B8%A3,%E9%9B%B2%E6%9E%97%E7%B8%A3,%E5%98%89%E7%BE%A9%E7%B8%A3,%E5%98%89%E7%BE%A9%E5%B8%82,%E5%B1%8F%E6%9D%B1%E7%B8%A3&timeFrom=${dateStringFrom}&timeTo=${dateStringTo}`, { cache: 'no-cache' }).then(response => response.json()).then((weatherData) => {
-        if (weatherData.success != "true") {
-            throw new Error("Can't get weather data.")
+
+    const [weatherDataFetchZh, weatherDataFetchEn] = await Promise.allSettled([
+        fetch(`https://opendata.cwa.gov.tw/api/v1/rest/datastore/F-C0032-001?Authorization=CWA-495E346B-BDF3-4E17-BE80-3A98E93B7B11&format=JSON&locationName=%E8%87%BA%E5%8C%97%E5%B8%82,%E6%96%B0%E5%8C%97%E5%B8%82,%E6%A1%83%E5%9C%92%E5%B8%82,%E8%87%BA%E4%B8%AD%E5%B8%82,%E8%87%BA%E5%8D%97%E5%B8%82,%E9%AB%98%E9%9B%84%E5%B8%82,%E6%96%B0%E7%AB%B9%E7%B8%A3,%E6%96%B0%E7%AB%B9%E5%B8%82,%E8%8B%97%E6%A0%97%E7%B8%A3,%E5%BD%B0%E5%8C%96%E7%B8%A3,%E5%8D%97%E6%8A%95%E7%B8%A3,%E9%9B%B2%E6%9E%97%E7%B8%A3,%E5%98%89%E7%BE%A9%E7%B8%A3,%E5%98%89%E7%BE%A9%E5%B8%82,%E5%B1%8F%E6%9D%B1%E7%B8%A3&timeFrom=${dateStringFrom}&timeTo=${dateStringTo}`, { cache: 'no-cache' }).then(response => response.json()),
+        fetch(`https://opendata.cwa.gov.tw/fileapi/v1/opendataapi/F-C0032-002?Authorization=CWA-495E346B-BDF3-4E17-BE80-3A98E93B7B11&format=JSON&locationName=TAIPEI%20CITY,NEW%20TAIPEI%20CITY,TAOYUAN%20CITY,TAICHUNG%20CITY,TAINAN%20CITY,KAOHSIUNG%20CITY,HSINCHU%20COUNTY,HSINCHU%20CITY,MIAOLI%20COUNTY,CHANGHUA%20COUNTY,NANTOU%20COUNTY,YUNLIN%20COUNTY,CHIAYI%20COUNTY,CHIAYI%20CITY,PINGTUNG%20COUNTY&timeFrom=${dateStringFrom}&timeTo=${dateStringTo}`).then(response => response.json()).then(weatherData => weatherData.cwaopendata)
+    ])
+
+    const weatherDataZh = weatherDataFetchZh.value ?? null
+    const weatherDataEn = weatherDataFetchEn.value ?? null
+
+    const parseLocation = (location) => {
+        const timeMap = {}
+
+        location.weatherElement.forEach(element => {
+            element.time.forEach(timeSlot => {
+                const key = `${timeSlot.startTime}_${timeSlot.endTime}`
+
+                if (!timeMap[key]) {
+                    timeMap[key] = {
+                        startTime: timeSlot.startTime,
+                        endTime: timeSlot.endTime,
+                        weather: {}
+                    }
+                }
+
+                timeMap[key].weather[element.elementName] = timeSlot.parameter
+            })
+        })
+
+        const timeSlots = Object.values(timeMap).sort(
+            (a, b) => new Date(a.startTime) - new Date(b.startTime)
+        )
+
+        return `<div class="location">
+            <h3 class="location-name">${location.locationName}</h3>
+            <div class="location-weather">
+            ${timeSlots.map(slot => {
+                return `<weather-data-item>
+                    <script type="application/json">
+                        ${JSON.stringify(slot)}
+                    </script>
+                </weather-data-item>`
+            }).join('')}
+            </div>
+        </div>`
+    }
+
+    try {
+        if (weatherDataZh) {
+            if (weatherDataZh.success != "true") {
+                throw new Error("Can't get weather data.")
+            }
+
+            var content = weatherDataZh.records.location.map((location) => parseLocation(location)).join('')
+
+            elementWeatherPage.insertAdjacentHTML('beforeend', `<div class="zh-TW">${content}</div>`)
         }
 
-        var content = weatherData.records.location.map((location) => {
-            const timeMap = {}
-
-            location.weatherElement.forEach(element => {
-                element.time.forEach(timeSlot => {
-                    const key = `${timeSlot.startTime}_${timeSlot.endTime}`
-
-                    if (!timeMap[key]) {
-                        timeMap[key] = {
-                            startTime: timeSlot.startTime,
-                            endTime: timeSlot.endTime,
-                            weather: {}
-                        }
-                    }
-
-                    timeMap[key].weather[element.elementName] = timeSlot.parameter
-                })
-            })
-
-            const timeSlots = Object.values(timeMap).sort(
-                (a, b) => new Date(a.startTime) - new Date(b.startTime)
-            )
-
-            return `<div class="location">
-                <h3 class="location-name">${location.locationName}</h3>
-                <div class="location-weather">
-                ${timeSlots.map(slot => {
-                    return `<weather-data-item>
-                        <script type="application/json">
-                            ${JSON.stringify(slot)}
-                        </script>
-                    </weather-data-item>`
-                }).join('')}
-                </div>
-            </div>`
-        }).join('')
-
-        elementWeatherPage.innerHTML = content
-    }).catch((e) => {
+        if (weatherDataEn) {
+            var content = weatherDataEn.dataset.location.map((location) => parseLocation(location)).join('')
+            elementWeatherPage.insertAdjacentHTML('beforeend', `<div class="en-US">${content}</div>`)
+        }
+    } catch (e) {
         console.log(e)
-        elementWeatherPage.innerHTML = `
-            <p class="error-message">
-                <span>非常抱歉，目前無法提供天氣資料。</span><br>
-                <span>We are sorry for the inconvenience.</span>
-            </p>`
-    }).finally(() => {
+    } finally {
         document.dispatchEvent(new CustomEvent("module-ready", { detail: {module: "weather"}}))
-    })
+    }
 })()
