@@ -294,6 +294,7 @@ function markdownToHTML(markdown, isLinkBlank = true) {
                             <p class="tel">
                                 <span class="label">聯絡電話：</span>
                                 <a href="tel:+886225965619">(02)2596-5619</a>
+                                <span class="comment">專線</span>
                                 <span aria-hidden="true">/</span>
                                 <a href="tel:+886225965858">(02)2596-5858 分機253</a>
                             </p>
