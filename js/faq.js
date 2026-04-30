@@ -1,20 +1,4 @@
 (async function(){
-    const dateConvert = (date) => {
-        const yyyy = date.getFullYear()
-        const MM = String(date.getMonth() + 1).padStart(2, '0'); // 月份從0開始所以+1
-        const dd = String(date.getDate()).padStart(2, '0');
-        const hh = String(date.getHours()).padStart(2, '0');
-        const mm = String(date.getMinutes()).padStart(2, '0');
-        const ss = String(date.getSeconds()).padStart(2, '0');
-
-        return `${yyyy}-${MM}-${dd}T${hh}:${mm}:${ss}`;
-    }
-    const dateStringFrom = dateConvert(new Date(Date.now()))
-    const dateStringTo = dateConvert((() => {
-        var date = new Date(Date.now())
-        date.setDate(date.getDate() + 1)
-        return date
-    })())
     
     class WeatherDataItem extends HTMLElement {
         static get observedAttributes() {
@@ -71,6 +55,19 @@
             const lang = this.getAttribute("lang")
 
             if (!slot) return
+
+            const dateConvert = ((dateString) => {
+                const date = new Date(dateString)
+
+                const yyyy = date.getFullYear()
+                const MM = String(date.getMonth() + 1).padStart(2, '0'); // 月份從0開始所以+1
+                const dd = String(date.getDate()).padStart(2, '0');
+                const hh = String(date.getHours()).padStart(2, '0');
+                const mm = String(date.getMinutes()).padStart(2, '0');
+                const ss = String(date.getSeconds()).padStart(2, '0');
+
+                return `${yyyy}/${MM}/${dd} ${hh}:${mm}`
+            })
             
             this.innerHTML = `
                 <style>
@@ -80,7 +77,7 @@
                     }
                 </style>
                 <div class="time-slot">
-                    <p class="time-stamp"><span class="start-time">${slot.startTime}</span>~<span class="end-time">${slot.endTime}</span></p>
+                    <p class="time-stamp"><span class="start-time">${dateConvert(slot.startTime)}</span>~<span class="end-time">${dateConvert(slot.endTime)}</span></p>
                     <ul class="weather-data-list">
                         <li class="weather-data-item Wx"><span class="data-title">${WeatherDataItem._itemName.Wx[lang]}</span><span class="data-shower">${slot.weather.Wx.parameterName}</span></li>
                         <li class="weather-data-item PoP"><span class="data-title">${WeatherDataItem._itemName.PoP[lang]}</span><span class="data-shower">${slot.weather.PoP.parameterName}&nbsp;%</span></li>
@@ -114,6 +111,23 @@
     })
 
     const elementWeatherPage = document.querySelector('.page-content .faq .content.weather .weather-data-table')
+    
+    const dateConvert = (date) => {
+        const yyyy = date.getFullYear()
+        const MM = String(date.getMonth() + 1).padStart(2, '0'); // 月份從0開始所以+1
+        const dd = String(date.getDate()).padStart(2, '0');
+        const hh = String(date.getHours()).padStart(2, '0');
+        const mm = String(date.getMinutes()).padStart(2, '0');
+        const ss = String(date.getSeconds()).padStart(2, '0');
+
+        return `${yyyy}-${MM}-${dd}T${hh}:${mm}:${ss}`;
+    }
+    const dateStringFrom = dateConvert(new Date(Date.now()))
+    const dateStringTo = dateConvert((() => {
+        var date = new Date(Date.now())
+        date.setDate(date.getDate() + 1)
+        return date
+    })())
 
     const [weatherDataFetchZh, weatherDataFetchEn] = await Promise.allSettled([
         fetch(`https://opendata.cwa.gov.tw/api/v1/rest/datastore/F-C0032-001?Authorization=CWA-495E346B-BDF3-4E17-BE80-3A98E93B7B11&format=JSON&locationName=%E8%87%BA%E5%8C%97%E5%B8%82,%E6%96%B0%E5%8C%97%E5%B8%82,%E6%A1%83%E5%9C%92%E5%B8%82,%E8%87%BA%E4%B8%AD%E5%B8%82,%E8%87%BA%E5%8D%97%E5%B8%82,%E9%AB%98%E9%9B%84%E5%B8%82,%E6%96%B0%E7%AB%B9%E7%B8%A3,%E6%96%B0%E7%AB%B9%E5%B8%82,%E8%8B%97%E6%A0%97%E7%B8%A3,%E5%BD%B0%E5%8C%96%E7%B8%A3,%E5%8D%97%E6%8A%95%E7%B8%A3,%E9%9B%B2%E6%9E%97%E7%B8%A3,%E5%98%89%E7%BE%A9%E7%B8%A3,%E5%98%89%E7%BE%A9%E5%B8%82,%E5%B1%8F%E6%9D%B1%E7%B8%A3&timeFrom=${dateStringFrom}&timeTo=${dateStringTo}`, { cache: 'no-cache' }).then(response => response.json()),
