@@ -90,6 +90,8 @@
             elementNewsList.appendChild(elementNewsItem)
         })
     }).finally(() => {
+        window.__moduleReady = window.__moduleReady || {}
+        window.__moduleReady['news'] = true
         document.dispatchEvent(new CustomEvent("module-ready", { detail: {module: "news"}}));
     })
 

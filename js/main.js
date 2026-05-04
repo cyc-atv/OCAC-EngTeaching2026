@@ -22,6 +22,8 @@
 
         toggleLanguage(configLang);
     }).finally(() => {
+        window.__moduleReady = window.__moduleReady || {}
+        window.__moduleReady['main'] = true
         document.dispatchEvent(new CustomEvent("module-ready", { detail: {module: "main"}}));
     });
 

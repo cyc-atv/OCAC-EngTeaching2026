@@ -285,6 +285,8 @@
             })
         })
     }).finally(() => {
+        window.__moduleReady = window.__moduleReady || {}
+        window.__moduleReady['service-school'] = true
         document.dispatchEvent(new CustomEvent("module-ready", { detail: {module: "service-school"}}))
     })
 })()

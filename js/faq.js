@@ -192,6 +192,8 @@
     } catch (e) {
         console.log(e)
     } finally {
+        window.__moduleReady = window.__moduleReady || {}
+        window.__moduleReady['weather'] = true
         document.dispatchEvent(new CustomEvent("module-ready", { detail: {module: "weather"}}))
     }
 })()
