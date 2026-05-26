@@ -186,7 +186,9 @@
         }
 
         if (weatherDataEn) {
-            var content = weatherDataEn.dataset.location.map((location) => parseLocation(location, "en-US")).join('')
+            var content = weatherDataEn.dataset.location.filter((location) => {
+                return ["TAIPEI CITY","NEW TAIPEI CITY","TAOYUAN CITY","TAICHUNG CITY","TAINAN CITY","KAOHSIUNG CITY","HSINCHU COUNTY","HSINCHU CITY","MIAOLI COUNTY","CHANGHUA COUNTY","NANTOU COUNTY","YUNLIN COUNTY","CHIAYI COUNTY","CHIAYI CITY","PINGTUNG COUNTY"].includes(location.locationName)
+            }).map((location) => parseLocation(location, "en-US")).join('')
             elementWeatherPage.insertAdjacentHTML('beforeend', `<div class="en-US">${content}</div>`)
         }
     } catch (e) {
