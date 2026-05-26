@@ -1,12 +1,11 @@
 (function () {
     const overlay = document.querySelector('.loading-overlay')
-    // const moduleNames = (overlay.dataset.waitFor || '').split(' ').filter(Boolean).map(name => ({
-    //     module: name.trim(),
-    //     loadingStatus: false
-    // }))
     const moduleNames = (overlay.dataset.waitFor || '').split(' ').filter(Boolean).map(name => name.trim())
 
+    var _isHidden = false
     var showPage = () => {
+        if (_isHidden) return   // 防止重複觸發
+        _isHidden = true
         overlay.style.opacity = 0
         setTimeout(() => {
             overlay.style.display = 'none'
@@ -15,29 +14,25 @@
 
     if (moduleNames.length === 0) {
         showPage()
+        return
     }
 
     window.__moduleReady = window.__moduleReady || {}
 
-    const readyModules = new Set(Object.keys(window.__moduleReady))
-
     const checkAllReady = () => {
-        if (moduleNames.every(name => readyModules.has(name))) {
+        if (moduleNames.every(name => window.__moduleReady[name])) {
             showPage()
         }
     }
+
+    // 立即檢查一次（處理模組比 overlay 腳本更早完成的情況）
     checkAllReady()
 
-    document.addEventListener('module-ready', (e) => {
-        // const target = moduleName.find(m => m.module === e.detail.module)
-        // if (target) {
-        //     target.loadingStatus = true
-        // }
-
-        // if (moduleName.every(m => m.loadingStatus)) {
-        //     showPage()
-        // }
-        readyModules.add(e.detail.module)
+    // 監聽後續的 module-ready 事件
+    document.addEventListener('module-ready', () => {
         checkAllReady()
     })
+
+    // 保底：最多等 8 秒強制關閉
+    setTimeout(showPage, 8000)
 })()
