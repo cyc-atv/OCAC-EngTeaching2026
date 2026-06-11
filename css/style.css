@@ -594,7 +594,7 @@ html[lang='en-US'] .main-nav .brand span {
 .page-content .school .school-select school-card {
     display: block;
     padding: 0.5em;
-    width: 22.5%;
+    width: 100%;
     height: 12em;
     cursor: pointer;
 }
@@ -644,6 +644,15 @@ html[lang='en-US'] .main-nav .brand span {
     .page-content .school .school-introduction school-detail h2 .sub-title {
         display: inline-block;
         margin: 0 0.25em;
+    }
+
+    .page-content .school .school-select .school-item,
+    .page-content .school .school-select school-card {
+        display: block;
+        padding: 0.5em;
+        width: 22.5%;
+        height: 12em;
+        cursor: pointer;
     }
 }
 
