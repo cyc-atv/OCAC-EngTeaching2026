@@ -52,6 +52,15 @@
                     background-color: var(--secondary-color);
                     color: #fff;
                 }
+
+                .news-item-container .news-detail a {
+                    color: #fff;
+                    text-decoration: underline;
+                }
+
+                .news-item-container .news-detail a:hover {
+                    text-decoration: none;
+                }
                 </style>
                 <div class="news-item-container">
                     <div class="news-header">
