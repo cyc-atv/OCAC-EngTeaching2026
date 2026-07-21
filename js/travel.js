@@ -137,4 +137,5 @@
     })
 
     showCard('central')
+    document.querySelector('section.travel a.button.central')?.classList.add('active')
 })()
