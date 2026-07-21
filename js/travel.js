@@ -129,6 +129,8 @@
     elementTravelButtons.forEach(button => {
         button.addEventListener('click', (e) => {
             e.preventDefault()
+            elementTravelButtons.forEach(btn => btn.classList.remove('active'))
+            button.classList.add('active')
             const targetId = button.getAttribute('href')?.substring(1)
             showCard(targetId || 'central')
         })

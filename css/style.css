@@ -911,6 +911,11 @@ html[lang='en-US'] .faq .weather-data-table .en-US {
     margin-bottom: 4em;
 }
 
+.travel .travel-navigation a.active {
+    background-color: var(--secondary-color);
+    color: #fff;
+}
+
 .registration article {
     margin: 2em 0;
 }
