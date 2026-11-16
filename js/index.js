@@ -120,7 +120,7 @@
             elementNewsItem.setAttribute('data-title', item.title)
             elementNewsItem.setAttribute('data-description', item.description)
 
-            elementNewsList.appendChild(elementNewsItem)
+            elementNewsList.prepend(elementNewsItem)
         })
     }).finally(() => {
         window.__moduleReady = window.__moduleReady || {}
