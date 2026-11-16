@@ -14,7 +14,14 @@
         _render() {
             const date = this.getAttribute('data-date')
             const title = this.getAttribute('data-title')
-            const description = this.getAttribute('data-description')
+            const description = (function(desc) {
+                const tpl = document.createElement('template');
+                tpl.innerHTML = desc;
+                tpl.content.querySelectorAll('.gallery br').forEach(br => br.remove());
+                return tpl.innerHTML;
+            })(markdownToHTML(this.getAttribute('data-description')))
+
+            const date_content = date ? `<p class="news-date">${date}</p>` : ''
 
             this.innerHTML = `
                 <style>
@@ -58,17 +65,34 @@
                     text-decoration: underline;
                 }
 
+                .news-item-container .news-detail .gallery {
+                    display: flex;
+                    flex-wrap: wrap;
+                    gap: 1em;
+                }
+
+                .news-item-container .news-detail .gallery img {
+                    max-width: 24%;
+                    height: auto;
+                }
+
                 .news-item-container .news-detail a:hover {
                     text-decoration: none;
+                }
+
+                @media (max-width: 700px) {
+                    .news-item-container .news-detail .gallery img {
+                        max-width: 100%;
+                }
                 }
                 </style>
                 <div class="news-item-container">
                     <div class="news-header">
                         <h1 class="news-title">${title}</h1>
-                        <p class="news-date">${date}</p>
+                        ${date_content}
                     </div>
                     <div class="news-detail ${this._isShowDetail ? '' : 'display-none'} markdown-content">
-                        ${markdownToHTML(description)}
+                        ${description}
                     </div>
                 </div>
             `
@@ -92,7 +116,7 @@
             var elementNewsItem = new NewsItem()
             elementNewsItem.classList.add('news-item')
             elementNewsItem.setAttribute('data-id', item.id)
-            elementNewsItem.setAttribute('data-date', item.date)
+            elementNewsItem.setAttribute('data-date', item.is_date_display === "FALSE" ? "" : item.date)
             elementNewsItem.setAttribute('data-title', item.title)
             elementNewsItem.setAttribute('data-description', item.description)
 
