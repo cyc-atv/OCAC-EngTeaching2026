@@ -20,95 +20,47 @@
     <link rel="icon" href="img/LOGO_V2_Website.png">
     <link rel="stylesheet" href="css/normalize.css">
     <link rel="stylesheet" href="css/style.css?v=20260331">
+    <style>
+        .main-content {
+            margin-top: 5rem;
+            margin-bottom: 10rem;
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        .main-text {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-top: 2rem;
+        }
+
+        .secondary-text {
+            font-size: 1.2rem;
+            margin-top: 1rem;
+        }
+    </style>
 </head>
-<body>
-    <div class="loading-overlay" data-wait-for="main news">
+<body style="margin-top: 0;">
+    <div class="loading-overlay">
         <div class="loader">
             <svg class="circular" viewBox="25 25 50 50">
                 <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="2" stroke-miterlimit="10"/>
             </svg>
         </div>
     </div>
-    <nav class="main-nav">
-        <div class="brand">
-            <a href="index.html">
-                <img src="img/LOGO_Brand.png" alt="2026海外青年英語服務營" class="brand-image">
-            </a>
-        </div>
-        <div class="nav-menu">
-            <input type="checkbox" id="menu-toggle">
-            <label class="menu-button-container" for="menu-toggle">
-                <div class="menu-button"></div>
-            </label>
-            <div class="menu-list">
-                <input type="checkbox" id="lang-toggle" data-lang="zh-TW">
-                <label class="lang-button-container" for="lang-toggle">
-                    <div class="lang-button-label">EN</div>
-                </label>
-                <a class="introduction" href="index.html#introduction">活動簡介</a>
-                <a class="location" href="location.html">研習地點</a>
-                <a class="registration" href="registration.html">報到須知</a>
-                <a class="school" href="service_school.html">服務學校</a>
-                <a class="mission" href="mission.html">志工使命</a>
-                <a class="travel" href="travel_schedule.html">寶島參訪</a>
-                <a class="regulation" href="regulation.html">營隊規則</a>
-                <a class="faq" href="faq.html">常見問題</a>
-                <a class="contact" href="contact.html">聯絡我們</a>
-            </div>
-        </div>
-    </nav>
     <header class="main-header">
         <div class="header-content">
             <img class="header-image" src="img/Header_Cover.jpg" alt="2026海外青年英語服務營">
         </div>
     </header>
-    <div class="main-content content-container container">
-        <section class="news">
-            <h1>最新消息</h1>
-            <div class="news-list">
-                <p class="stay-tuned">敬請期待</p>
-            </div>
-        </section>
-        <section class="introduction">
-            <a name="introduction"></a>
-            <h1>活動簡介</h1>
-            <div>
-                <p>僑委會為使海外青年活動與時俱進，落實推動國際志工服務精神，鼓勵海外志工投入國內英語教學活動，2004年起與金車教育基金會合作辦理「尋找ABC史懷哲－海外華裔青年暑期返鄉英語教學志願服務」，邀請有服務意願之海外僑青來臺服務。</p>
-                <p>鑑於運用海外資源來臺投入志願服務活動，深具正面意義，並可配合政府雙語政府及人才培育計畫，鼓勵海外僑青投入國內英語教學活動，提昇偏遠或教學資源缺乏地區國小、國中學生及弱勢族群學習英語機會，本會與教育部於2006年共同規劃辦理「海外青年英語服務營」，活動為期4週，第1週教育訓練，第2、3週到校進行英語教學、第4週寶島參訪，由本會負責招募海外僑青來臺，教育部則負責志工教育訓練及在校英語教學服務。因辦理成效良好，逐年擴大辦理規模，2014年起並邀請客家委員會及民間NGO單位參與辦理，2016年原住民族委員會亦加入辦理行列。</p>
-                <p>「2025年海外青年英語服務營」於114年7月5日至8月1日辦理，計有來自美國、加拿大、英國、澳洲、南非、義大利、法國、新加坡等22個國家共415名海外志工(包括臺灣華語文學習中心TCML及海外主流學校學生)至國內68所國、中小學服務(教育部64校、客委會4校)，國內有3,026名學童受益。截至目前計有超過7,000名海外志工來臺參加，國內計有逾50,000名學童受惠。</p>
-                <p>本項活動成效卓著，廣受海內外好評，除成功引導海外青年投入臺灣志願服務外，亦使海外青年更貼近臺灣，與臺灣產生情感聯繫，達成促進國際青年交流、縮小國內城鄉差距、提升國內學童英語學習動機及創新僑教服務等多重目標。</p>
-            </div>
-        </section>
-        <section class="video">
-            <h1>活動影音</h1>
-            <div class="video-content">
-                <figure class="video-item">
-                    <iframe src="https://www.youtube.com/embed/p8fDH_aWeKM?si=dqoplXXm4rdDFFBG" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-                    <figcaption>2026年海外青年英語服務營志工招募影片</figcaption>
-                </figure>
-                <figure class="video-item">
-                    <iframe src="https://www.youtube.com/embed/kxRCX-ndkGE?si=QRBJVNen6FZkhkqU" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-                    <figcaption>海外青年英語服務營20週年紀念影片</figcaption>
-                </figure>
-            </div>
-        </section>
-        <section class="gallery">
-            <div class="gallery-content">
-                <img class="gallery-item" src="img/index/file_559914.jpg">
-                <img class="gallery-item" src="img/index/file_559915.jpg">
-                <img class="gallery-item" src="img/index/file_559916.jpg">
-                <img class="gallery-item" src="img/index/file_559917.jpg">
-                <img class="gallery-item" src="img/index/file_559918.jpg">
-                <img class="gallery-item" src="img/index/file_559919.jpg">
-                <img class="gallery-item" src="img/index/file_559920.jpg">
-                <img class="gallery-item" src="img/index/file_559921.jpg">
-            </div>
-        </section>
+    <div class="main-content">
+        <p class="main-text text-center">本次英語服務營已圓滿完成，感謝各位志工的參與！</p>
+        <p class="secondary-text text-center">This activity is already finished. Thanks for all volunteers' participation!</p>
     </div>
     <site-footer></site-footer>
     <script src="js/common.js"></script>
-    <script src="js/main.js?v=20260320"></script>
-    <script src="js/index.js?v=20260326"></script>
     <script src="js/loading.js?v=20260318"></script>
 </body>
 </html>
